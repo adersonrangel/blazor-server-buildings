@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-server-buildings", "blazor-server-buildings\blazor-server-buildings.csproj", "{1024B547-0077-4939-A2CE-8D1A9A2DAA94}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BuildingDB", "BuildingDB\BuildingDB.sqlproj", "{44BCB040-F733-4AAA-A522-D7642C9D7AC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{1024B547-0077-4939-A2CE-8D1A9A2DAA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1024B547-0077-4939-A2CE-8D1A9A2DAA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1024B547-0077-4939-A2CE-8D1A9A2DAA94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44BCB040-F733-4AAA-A522-D7642C9D7AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44BCB040-F733-4AAA-A522-D7642C9D7AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44BCB040-F733-4AAA-A522-D7642C9D7AC6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{44BCB040-F733-4AAA-A522-D7642C9D7AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44BCB040-F733-4AAA-A522-D7642C9D7AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44BCB040-F733-4AAA-A522-D7642C9D7AC6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
