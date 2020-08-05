@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLibrary.Data;
@@ -34,6 +35,16 @@ namespace ApiDemoApp
             services.AddSingleton<IFoodData, FoodData>();
             services.AddSingleton<IOrderData, OrderData>();
 
+            services.AddCors( options => {
+                options.AddPolicy("AllowOrigin", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +58,8 @@ namespace ApiDemoApp
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowOrigin");
 
             app.UseAuthorization();
 
