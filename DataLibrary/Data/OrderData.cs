@@ -27,7 +27,7 @@ namespace DataLibrary.Data
 
             p.Add("OrderName", orderModel.OrderName);
             p.Add("OrderDate", orderModel.OrderDate);
-            p.Add("FoodId", orderModel.FootId);
+            p.Add("FoodId", orderModel.FoodId);
             p.Add("Quantity", orderModel.Quantity);
             p.Add("Total", orderModel.Total);
             p.Add("Id", DbType.Int32, direction:ParameterDirection.Output);

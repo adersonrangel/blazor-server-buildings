@@ -21,7 +21,7 @@ namespace DataLibrary.Models
 
         [DisplayName("Meal")]
         [Range(1, Int32.MaxValue, ErrorMessage = "You need to select a meal from the list")]
-        public int FootId { get; set; }
+        public int FoodId { get; set; }
         
         [Required]
         [Range(1, 10, ErrorMessage = "you can select up to 10 meals")]

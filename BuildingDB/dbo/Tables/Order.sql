@@ -3,7 +3,7 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [OrderName] NVARCHAR(50) NOT NULL, 
     [OrderDate] DATETIME2 NOT NULL, 
-    [FootId] INT NOT NULL, 
+    [FoodId] INT NOT NULL, 
     [Quantity] INT NOT NULL, 
     [Total] MONEY NOT NULL
 )
