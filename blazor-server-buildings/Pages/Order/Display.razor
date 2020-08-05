@@ -3,11 +3,16 @@
 @page "/order/display/{Id:int}"
 @inject IFoodData footData
 @inject IOrderData orderData
+@inject NavigationManager navigationManager
 
 
 <h3>Display</h3>
 
-@if (order is null)
+@if (recordNotfound)
+{
+    <h4>Record Not Found</h4>
+}
+else if (order is null)
 {
     <h4>Record Loading ...</h4>
 }
@@ -32,10 +37,29 @@ else
                 <td><strong>Item Order</strong></td>
                 <td>@itemPurchased</td>
             </tr>
-            <tr>
-                <td><strong>Quantity Ordered</strong></td>
-                <td>@order.Quantity</td>
-            </tr>
+        <tr>
+            <td><strong>Quantity Ordered</strong></td>
+            <td>@order.Quantity</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @if (confirmDelete)
+                {
+                    <button class="btn btn-outline-danger" @onclick="HandlerDeleteRecord">
+                        Confirm Delete
+                    </button>
+                    <button class="btn btn-secondary" @onclick="(() => confirmDelete = false)">
+                        Cancele Delete
+                    </button>
+                }
+                else
+                {
+                    <button class="btn btn-danger" @onclick="(() => confirmDelete = true)">
+                        Delete Order
+                    </button>
+                }
+            </td>
+        </tr>
         </tbody>
     </table>
     <EditForm Model="@orderUpdateModel" OnValidSubmit="HandleValidSubmit">
@@ -60,6 +84,8 @@ else
 
     private OrderModel order;
     private string itemPurchased;
+    private bool confirmDelete = false;
+    private bool recordNotfound = false;
     private OrderUpdateModel orderUpdateModel = new OrderUpdateModel();
 
 
@@ -75,12 +101,23 @@ else
             orderUpdateModel.Id = order.Id;
             orderUpdateModel.OrderName = order.OrderName;
         }
+        else
+        {
+            recordNotfound = true;
+        }
     }
 
     public async Task HandleValidSubmit()
     {
         await orderData.UpdateOrderName(orderUpdateModel.Id, orderUpdateModel.OrderName);
         order.OrderName = orderUpdateModel.OrderName;
+    }
+
+
+    private async Task HandlerDeleteRecord()
+    {
+        await orderData.DeleteOrder(Id);
+        navigationManager.NavigateTo("foot/list");
     }
 
 }
