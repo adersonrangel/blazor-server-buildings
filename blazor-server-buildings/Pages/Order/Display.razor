@@ -1,5 +1,6 @@
-﻿@page "/order/display/{Id:int}"
+﻿@using blazor_server_buildings.Models
 
+@page "/order/display/{Id:int}"
 @inject IFoodData footData
 @inject IOrderData orderData
 
@@ -37,6 +38,19 @@ else
             </tr>
         </tbody>
     </table>
+    <EditForm Model="@orderUpdateModel" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary Model="@orderUpdateModel"></ValidationSummary>
+        
+        <div class="form-group">
+            <label class="control-label">Name for the Order</label>
+            <InputText @bind-Value="orderUpdateModel.OrderName" class="form-control"></InputText>
+            <ValidationMessage For="@(() => orderUpdateModel.OrderName)" class="text-danger"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Update Order Name" class="btn btn-primary"/>
+        </div>
+    </EditForm>
 }
 
 @code {
@@ -46,6 +60,8 @@ else
 
     private OrderModel order;
     private string itemPurchased;
+    private OrderUpdateModel orderUpdateModel = new OrderUpdateModel();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,7 +71,16 @@ else
         {
             var food = await footData.GetFood();
             itemPurchased = food.FirstOrDefault(x => x.Id == order.FoodId)?.Title;
+            
+            orderUpdateModel.Id = order.Id;
+            orderUpdateModel.OrderName = order.OrderName;
         }
+    }
+
+    public async Task HandleValidSubmit()
+    {
+        await orderData.UpdateOrderName(orderUpdateModel.Id, orderUpdateModel.OrderName);
+        order.OrderName = orderUpdateModel.OrderName;
     }
 
 }
