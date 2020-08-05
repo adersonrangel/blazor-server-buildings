@@ -2,6 +2,7 @@
 
 @inject IFoodData FoodData
 @inject IOrderData OrderData
+@inject NavigationManager navigationManager
 
 <h3>Create</h3>
 
@@ -50,7 +51,7 @@
         order.Total = order.Quantity * foodItems.First(x => x.Id == order.FoodId).Price;
         int id = await  OrderData.CreateOrder(order);
 
-        order = new OrderModel();
+        navigationManager.NavigateTo($"order/display/{id}");
     }
 
     private void FoodItemChange(ChangeEventArgs e)

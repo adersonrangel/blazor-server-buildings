@@ -1,0 +1,61 @@
+﻿@page "/order/display/{Id:int}"
+
+@inject IFoodData footData
+@inject IOrderData orderData
+
+
+<h3>Display</h3>
+
+@if (order is null)
+{
+    <h4>Record Loading ...</h4>
+}
+else
+{
+    <table class="table">
+        <thead></thead>
+        <tbody>
+            <tr>
+                <td><strong>OrderName</strong></td>
+                <td>@order.OrderName</td>
+            </tr>
+            <tr>
+                <td><strong>Order Date</strong></td>
+                <td>@order.OrderDate</td>
+            </tr>
+            <tr>
+                <td><strong>Order Total</strong></td>
+                <td>@($"{order.Total:C}")</td>
+            </tr>
+            <tr>
+                <td><strong>Item Order</strong></td>
+                <td>@itemPurchased</td>
+            </tr>
+            <tr>
+                <td><strong>Quantity Ordered</strong></td>
+                <td>@order.Quantity</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private OrderModel order;
+    private string itemPurchased;
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = await orderData.GetOrderById(Id);
+
+        if (order != null)
+        {
+            var food = await footData.GetFood();
+            itemPurchased = food.FirstOrDefault(x => x.Id == order.FoodId)?.Title;
+        }
+    }
+
+}
