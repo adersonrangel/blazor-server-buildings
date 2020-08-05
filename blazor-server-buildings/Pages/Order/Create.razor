@@ -1,0 +1,69 @@
+﻿@page "/Order/Create"
+
+@inject IFoodData FoodData
+@inject IOrderData OrderData
+
+<h3>Create</h3>
+
+<EditForm Model="@order" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary Model="@order"></ValidationSummary>
+    <div class="form-group">
+        <label class="control-label">Item to order</label>
+        <select @onchange="FoodItemChange" class="form-control">
+            <option value="">Select a meal...</option>
+            @foreach (var food in foodItems)
+            {
+                <option value="@food.Id">@food.Title</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Quantity</label>
+        <InputNumber @bind-Value="order.Quantity" class="form-control"></InputNumber>
+        <ValidationMessage For="@(() => order.Quantity)" class="text-danger"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Name for the Order</label>
+        <InputText @bind-Value="order.OrderName" class="form-control"></InputText>
+        <ValidationMessage For="@(() => order.OrderName)" class="text-danger"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Order Food" class="btn btn-primary"/>
+    </div>
+</EditForm>
+
+
+@code {
+
+    private OrderModel order = new OrderModel();
+    private List<FoodModel> foodItems = new List<FoodModel>();
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        foodItems = await FoodData.GetFood();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        order.Total = order.Quantity * foodItems.First(x => x.Id == order.FoodId).Price;
+        int id = await  OrderData.CreateOrder(order);
+
+        order = new OrderModel();
+    }
+
+    private void FoodItemChange(ChangeEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(e.Value.ToString()) == false)
+        {
+            order.FoodId = Int32.Parse(e.Value.ToString());    
+        }
+        else
+        {
+            order.FoodId = 0;
+        }
+
+    }
+
+}

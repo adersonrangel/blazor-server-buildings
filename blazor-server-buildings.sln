@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Api", "2. Api", "{AEF5D9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. UI", "1. UI", "{2978EE2C-0C93-4EC3-A8FD-6C7B1E46F8B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiDemoApp", "ApiDemoApp\ApiDemoApp.csproj", "{D2B9AD49-2F8E-41C8-8213-01C13F5E5F63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiDemoApp", "ApiDemoApp\ApiDemoApp.csproj", "{D2B9AD49-2F8E-41C8-8213-01C13F5E5F63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
